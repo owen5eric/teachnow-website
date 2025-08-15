@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeachNow.ai - AI-Powered Educational Resources</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1C4E80;
+            --secondary-color: #34C88A;
+            --accent-color: #5C677A;
+            --coral-color: #FF6F61;
+            --success-color: #34C88A;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --dark-color: #1f2937;
+            --light-gray: #f8fafc;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo-icon::before {
+            content: "";
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: var(--primary-color);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            transform: translateY(-2px);
+        }
+
+        .logo-icon::after {
+            content: "";
+            position: absolute;
+            width: 36px;
+            height: 20px;
+            background: var(--secondary-color);
+            border-radius: 18px 18px 0 0;
+            bottom: 0;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1d4ed8, #059669);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(16, 185, 129, 0.9));
+            z-index: 1;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: var(--light-gray);
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--dark-color);
+            font-weight: 700;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(37, 99, 235, 0.15);
+            border-color: var(--secondary-color);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1));
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .pricing h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 400px;
+            margin: 2rem auto;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--secondary-color);
+            transform: scale(1.05);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.02), rgba(37, 99, 235, 0.02));
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.15);
+        }
+
+        .pricing-badge {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1rem 0;
+        }
+
+        .price-period {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            padding: 2rem 0;
+        }
+
+        .dashboard.active {
+            display: block;
+        }
+
+        .dashboard-header {
+            background: var(--light-gray);
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dashboard-tab {
+            padding: 1rem 2rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dashboard-tab.active {
+            border-bottom-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .dashboard-content {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
+        /* AI Generator */
+        .ai-generator {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Marketplace */
+        .marketplace-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .resource-image {
+            width: 100%;
+            height: 200px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--border-color);
+        }
+
+        .resource-info {
+            padding: 1.5rem;
+        }
+
+        .resource-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--success-color);
+        }
+
+        /* Upload Form */
+        .upload-area {
+            border: 3px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            background: var(--light-gray);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .upload-area:hover, .upload-area.dragover {
+            border-color: var(--primary-color);
+            background: #f0f9ff;
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            color: var(--border-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.12);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .close {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .alert-warning {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--light-gray);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-nav {
+                flex-wrap: wrap;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Hidden sections initially */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .dashboard-tab-content {
+            display: none;
+        }
+
+        .dashboard-tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">
+                <div class="logo-icon"></div>
+                TeachNow.ai
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link" onclick="showPage('marketplace')">Marketplace</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('ai-generator')">AI Generator</a></li>
+                <li><a href="#" class="nav-link" onclick="showPage('pricing')">Pricing</a></li>
+            </ul>
+            <div class="nav-buttons" id="nav-buttons">
+                <a href="#" class="btn btn-secondary" onclick="showModal('login')">Login</a>
+                <a href="#" class="btn btn-primary" onclick="showModal('signup')">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Home Page -->
+        <section id="home" class="page-section active">
+            <!-- Hero Section -->
+            <div class="hero">
+                <div class="container">
+                    <h1>AI-Powered Educational Resources</h1>
+                    <p>Create, discover, and share K-12 teaching materials with the power of artificial intelligence</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary btn-hero" onclick="showModal('signup')">
+                            <i class="fas fa-rocket"></i>
+                            Start Creating
+                        </a>
+                        <a href="#" class="btn btn-secondary btn-hero" onclick="showPage('marketplace')">
+                            <i class="fas fa-search"></i>
+                            Browse Resources
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <section class="features">
+                <div class="container">
+                    <h2>Everything You Need to Teach Better</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3>AI Content Generation</h3>
+                            <p>Generate custom worksheets, lesson plans, and educational materials using advanced AI technology tailored for K-12 education.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <h3>Open Marketplace</h3>
+                            <p>Buy and sell educational resources in our teacher-friendly marketplace with 80% commission rates for sellers.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <h3>Easy Uploads</h3>
+                            <p>Upload PDFs, images, documents, and presentations with support for multiple file formats up to 100MB.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fab fa-google-drive"></i>
+                            </div>
+                            <h3>Google Integration</h3>
+                            <p>Seamlessly export your AI-generated content directly to Google Drive and Google Slides for easy editing.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <h3>Monthly Payouts</h3>
+                            <p>Automatic seller payouts every month on the 15th with transparent earnings tracking and no hidden fees.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>Quality Assured</h3>
+                            <p>All uploaded content goes through manual review to ensure high-quality educational materials for teachers.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pricing Section -->
+            <section class="pricing">
+                <div class="container">
+                    <h2>Simple, Affordable Pricing</h2>
+                    <p>Everything you need to create and sell educational content</p>
+                    
+                    <div class="pricing-card featured">
+                        <div class="pricing-badge">Best Value</div>
+                        <h3>Teacher Pro</h3>
+                        <div class="price">$10<span class="price-period">/year</span></div>
+                        <ul style="text-align: left; margin: 1rem 0;">
+                            <li><i class="fas fa-check" style="color: var(--success-color);"></i> 100 AI generations per year</li>
+                            <li><i class="fas fa-check" style="color: var(--success-color);"></i> Unlimited uploads & listings</li>
+                            <li><i class="fas fa-check" style="color: var(--success-color);"></i> Access to full marketplace</li>
+                            <li><i class="fas fa-check" style="color: var(--success-color);"></i> Google Drive/Slides integration</li>
+                            <li><i class="fas fa-check" style="color: var(--success-color);"></i> 80% commission on sales</li>
+                            <li><i class="fas fa-check" style="color: var(--success-color);"></i> Monthly automatic payouts</li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="showModal('signup')" style="width: 100%;">
+                            Start Your Subscription
+                        </button>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                            Additional AI credits available for purchase
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- Marketplace Page -->
+        <section id="marketplace" class="page-section">
+            <div class="container" style="padding-top: 2rem;">
+                <div class="dashboard-header">
+                    <h1>Educational Marketplace</h1>
+                    <p>Discover high-quality K-12 teaching resources created by educators</p>
+                </div>
+
+                <!-- Search and Filters -->
+                <div class="dashboard-content" style="margin-bottom: 2rem;">
+                    <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 1rem; align-items: end;">
+                        <div class="form-group">
+                            <label class="form-label">Search Resources</label>
+                            <input type="text" class="form-control" placeholder="Enter keywords, subject, or grade level..." id="search-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Subject</label>
+                            <select class="form-control" id="subject-filter">
+                                <option value="">All Subjects</option>
+                                <option value="math">Mathematics</option>
+                                <option value="science">Science</option>
+                                <option value="ela">English Language Arts</option>
+                                <option value="social">Social Studies</option>
+                                <option value="art">Art</option>
+                                <option value="pe">Physical Education</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Grade Level</label>
+                            <select class="form-control" id="grade-filter">
+                                <option value="">All Grades</option>
+                                <option value="k">Kindergarten</option>
+                                <option value="1-2">Grades 1-2</option>
+                                <option value="3-5">Grades 3-5</option>
+                                <option value="6-8">Grades 6-8</option>
+                                <option value="9-12">Grades 9-12</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resource Grid -->
+                <div class="marketplace-grid" id="marketplace-grid">
+                    <!-- Sample resources will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Generator Page -->
+        <section id="ai-generator" class="page-section">
+            <div class="container" style="padding-top: 2rem;">
+                <div class="dashboard-header">
+                    <h1>AI Content Generator</h1>
+                    <p>Create custom educational materials with AI assistance</p>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="ai-generator">
+                        <div class="stats-grid" style="margin-bottom: 2rem;">
+                            <div class="stat-card">
+                                <div class="stat-number" id="remaining-credits">85</div>
+                                <div class="stat-label">Credits Remaining</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="generated-this-month">15</div>
+                                <div class="stat-label">Generated This Month</div>
+                            </div>
+                        </div>
+
+                        <form id="ai-generator-form">
+                            <div class="form-group">
+                                <label class="form-label">Resource Type</label>
+                                <select class="form-control" id="resource-type" required>
+                                    <option value="">Select resource type</option>
+                                    <option value="worksheet">Worksheet</option>
+                                    <option value="lesson-plan">Lesson Plan</option>
+                                    <option value="quiz">Quiz/Assessment</option>
+                                    <option value="activity">Classroom Activity</option>
+                                    <option value="handout">Student Handout</option>
+                                    <option value="template">Template</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Subject</label>
+                                <select class="form-control" id="ai-subject" required>
+                                    <option value="">Select subject</option>
+                                    <option value="math">Mathematics</option>
+                                    <option value="science">Science</option>
+                                    <option value="ela">English Language Arts</option>
+                                    <option value="social">Social Studies</option>
+                                    <option value="art">Art</option>
+                                    <option value="pe">Physical Education</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Grade Level</label>
+                                <select class="form-control" id="ai-grade" required>
+                                    <option value="">Select grade level</option>
+                                    <option value="k">Kindergarten</option>
+                                    <option value="1">Grade 1</option>
+                                    <option value="2">Grade 2</option>
+                                    <option value="3">Grade 3</option>
+                                    <option value="4">Grade 4</option>
+                                    <option value="5">Grade 5</option>
+                                    <option value="6">Grade 6</option>
+                                    <option value="7">Grade 7</option>
+                                    <option value="8">Grade 8</option>
+                                    <option value="9">Grade 9</option>
+                                    <option value="10">Grade 10</option>
+                                    <option value="11">Grade 11</option>
+                                    <option value="12">Grade 12</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Content
